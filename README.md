@@ -9,12 +9,12 @@ src/
 │   │
 │   ├── Dashboard.css           # GLOBAL STYLES: Contains the Royal Blue theme variables
 │   │
-│   ├── admin/                  # SUPER ADMIN (The Boss)
-│   │   ├── AdminLayout.jsx     # Sidebar & Topbar specific to Super Admin
+│   ├── admin/                  # ADMIN 
+│   │   ├── AdminLayout.jsx     # Sidebar & Topbar specific to Admin
 │   │   ├── AdminDashboard.jsx  # Main Stats & Company Management Table
 │   │   └── AddCompany.jsx      # Form to register new schools
 │   │
-│   ├── company/                # COMPANY ADMIN (The School)
+│   ├── company/                # COMPANY ADMIN OR USER
 │   │   ├── CompanyLayout.jsx   # Sidebar & Topbar specific to School Admins
 │   │   ├── CompanyDashboard.jsx# Stats for Students/Teachers
 │   │   ├── AddStudent.jsx      # Form to enroll students
@@ -23,5 +23,5 @@ src/
 │   │
 │   └── auth/                   # AUTHENTICATION
 │       ├── Login.jsx           # Logic to redirect Admin vs. User
-│       ├── Register.jsx        # Create account (with role selection)
+│       ├── Register.jsx        # Create account 
 │       └── Login.css           # Specific styles for the login page
