@@ -1,3 +1,4 @@
+```text
 src/
 │
 ├── App.jsx                     # Main Router: Decides which page to show
@@ -24,6 +25,3 @@ src/
 │       ├── Login.jsx           # Logic to redirect Admin vs. User
 │       ├── Register.jsx        # Create account (with role selection)
 │       └── Login.css           # Specific styles for the login page
-
-
----
