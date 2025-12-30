@@ -70,7 +70,7 @@ const Register = () => {
           </div>
 
           <div className="form-group">
-            <label>Admin Name</label>
+            <label>Name</label>
             <input type="text" name="fullName" placeholder="Enter full name" value={formData.fullName} onChange={handleChange} required />
           </div>
 
