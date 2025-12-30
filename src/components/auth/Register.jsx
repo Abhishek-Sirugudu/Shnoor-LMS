@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../firebase';
+import { doc, setDoc } from 'firebase/firestore'; 
+import { auth, db } from '../../firebase'; 
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import './Login.css';
 
 const Register = () => {
   const [formData, setFormData] = useState({
+    schoolName: '', 
     fullName: '',
     email: '',
     password: '',
-    confirmPassword: '',
-    role: 'company_admin'
+    confirmPassword: ''
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -33,15 +34,23 @@ const Register = () => {
 
     setLoading(true);
     try {
-      await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+      const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+      const user = userCredential.user;
+
+      await setDoc(doc(db, "users", user.uid), {
+        uid: user.uid,
+        fullName: formData.fullName,
+        email: formData.email,
+        schoolName: formData.schoolName, 
+        role: 'company', 
+        createdAt: new Date().toISOString()
+      });
+
       alert("Registration Successful!");
       navigate('/');
     } catch (err) {
-      if (err.code === 'auth/email-already-in-use') {
-        setError("Email is already registered.");
-      } else {
-        setError("Failed to create account.");
-      }
+      if (err.code === 'auth/email-already-in-use') setError("Email is already registered.");
+      else setError("Failed to create account: " + err.message);
     }
     setLoading(false);
   };
@@ -51,12 +60,17 @@ const Register = () => {
       <div className="login-card">
         <div className="login-header">
           <h2 className="brand-title">SHNOOR LMS</h2>
-          <p className="brand-subtitle">Create Account</p>
+          <p className="brand-subtitle">Create School Account</p>
         </div>
 
         <form onSubmit={handleRegister} className="login-form">
           <div className="form-group">
-            <label>Full Name</label>
+            <label>School / Organization Name</label>
+            <input type="text" name="schoolName" placeholder="e.g. Springfield High" value={formData.schoolName} onChange={handleChange} required />
+          </div>
+
+          <div className="form-group">
+            <label>Admin Name</label>
             <input type="text" name="fullName" placeholder="Enter full name" value={formData.fullName} onChange={handleChange} required />
           </div>
 
@@ -83,21 +97,6 @@ const Register = () => {
                 {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
             </div>
-          </div>
-
-          <div className="form-group">
-            <label>Register As</label>
-            <select
-              name="role"
-              value={formData.role}
-              onChange={handleChange}
-              style={{
-                width: '100%', padding: '0.8rem', border: '1px solid #ddd', borderRadius: '6px'
-              }}
-            >
-              <option value="company_admin">User</option>
-              <option value="super_admin">Admin</option>
-            </select>
           </div>
 
           {error && <div className="error-message">{error}</div>}
