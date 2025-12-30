@@ -15,7 +15,6 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  // Load saved email, ignoring old 'admin@shnoor.com'
   useEffect(() => {
     const rememberedEmail = localStorage.getItem('rememberedEmail');
     if (rememberedEmail && rememberedEmail !== 'admin@shnoor.com') {
@@ -24,12 +23,10 @@ const Login = () => {
     }
   }, []);
 
-  // Optimized Redirect Logic with Timeout
   const checkRoleAndRedirect = async (user) => {
-    console.log("Step 2: Checking Role in DB..."); // Debug Log
+    console.log("Step 2: Checking Role in DB..."); 
     
     try {
-      // Logic: If DB takes > 3 seconds, force redirect (Prevents hanging)
       const timeoutPromise = new Promise((resolve) => setTimeout(resolve, 3000, 'timeout'));
       const dbPromise = getDoc(doc(db, "users", user.uid));
 
@@ -37,17 +34,16 @@ const Login = () => {
 
       if (result === 'timeout') {
         console.warn("Database too slow, forcing fallback redirect.");
-        // Fallback navigation if DB is slow
         if (user.email.includes('admin')) navigate('/admin/dashboard');
         else navigate('/company/overview');
         return;
       }
 
-      const userDoc = result; // If not timeout, it's the doc
+      const userDoc = result; 
       
       if (userDoc.exists()) {
         const role = userDoc.data().role;
-        console.log("Role found:", role); // Debug Log
+        console.log("Role found:", role); 
         if (role === 'admin') navigate('/admin/dashboard');
         else if (role === 'student') navigate('/learner/dashboard');
         else navigate('/company/overview'); 
@@ -68,7 +64,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      console.log("Step 1: Authenticating..."); // Debug Log
+      console.log("Step 1: Authenticating..."); 
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       
       if (rememberMe) localStorage.setItem('rememberedEmail', email);
