@@ -1,0 +1,50 @@
+import React from 'react';
+import { FaUserCircle, FaCog, FaGlobe } from 'react-icons/fa';
+import '../Dashboard.css';
+
+const AdminProfileManagement = () => {
+  return (
+    <div className="form-container">
+      <div className="form-box">
+        <h3 className="form-header">Profile & Platform Settings</h3>
+        
+        <div style={{ display: 'flex', alignItems: 'center', gap: '20px', paddingBottom: '20px', borderBottom: '1px solid #e5e7eb', marginBottom: '20px' }}>
+           <FaUserCircle style={{ fontSize: '4rem', color: '#003366' }} />
+           <div>
+             <h4 style={{ margin: 0, fontSize: '1.2rem', color: '#1f2937' }}>Super Admin</h4>
+             <p style={{ margin: '5px 0 0', color: '#6b7280' }}>admin@shnoor.com</p>
+             <span style={{ fontSize: '0.8rem', background: '#dbeafe', color: '#1e40af', padding: '2px 8px', borderRadius: '4px' }}>System Administrator</span>
+           </div>
+        </div>
+
+        {/* Settings List */}
+        <h4 style={{ color: '#003366', marginBottom: '15px' }}>General Preferences</h4>
+        
+        <div className="stat-card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+             <FaGlobe style={{ fontSize: '1.5rem', color: '#4b5563' }} />
+             <div>
+               <div style={{ fontWeight: 600 }}>Timezone & Region</div>
+               <div style={{ fontSize: '0.85rem', color: '#6b7280' }}>Asia/Kolkata (GMT+5:30)</div>
+             </div>
+          </div>
+          <button className="btn-secondary">Edit</button>
+        </div>
+
+        <div className="stat-card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+             <FaCog style={{ fontSize: '1.5rem', color: '#4b5563' }} />
+             <div>
+               <div style={{ fontWeight: 600 }}>Default Branding</div>
+               <div style={{ fontSize: '0.85rem', color: '#6b7280' }}>Shnoor LMS Theme (Navy Blue)</div>
+             </div>
+          </div>
+          <button className="btn-secondary">Customize</button>
+        </div>
+
+      </div>
+    </div>
+  );
+};
+
+export default AdminProfileManagement;

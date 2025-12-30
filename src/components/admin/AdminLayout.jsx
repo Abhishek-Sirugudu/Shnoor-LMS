@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { auth } from '../../firebase'; 
 import { onAuthStateChanged, signOut } from 'firebase/auth'; 
-import { FaUserCircle, FaBuilding, FaThLarge, FaSignOutAlt } from 'react-icons/fa'; 
+import { FaUserCircle, FaBuilding, FaThLarge, FaSignOutAlt, FaUsers, FaCog } from 'react-icons/fa'; 
 import '../Dashboard.css';
 
 const AdminLayout = () => {
@@ -33,6 +33,11 @@ const AdminLayout = () => {
           <h3 className="sidebar-title">SHNOOR ADMIN</h3>
         </div>
 
+        {/* SECTION HEADER */}
+        <div style={{ padding: '15px 15px 5px', fontSize: '0.75rem', color: '#9ca3af', fontWeight: 'bold' }}>
+          MAIN MENU
+        </div>
+
         <ul className="nav-links">
           <li 
             className={`nav-item ${location.pathname.includes('dashboard') ? 'active' : ''}`}
@@ -44,7 +49,33 @@ const AdminLayout = () => {
             className={`nav-item ${location.pathname.includes('add-company') ? 'active' : ''}`}
             onClick={() => navigate('/admin/add-company')}
           >
-            <FaBuilding className="nav-icon"/> Add Company
+            <FaBuilding className="nav-icon"/> Register Company
+          </li>
+        </ul>
+
+        {/* MANAGEMENT SECTION */}
+        <div style={{ padding: '15px 15px 5px', fontSize: '0.75rem', color: '#9ca3af', fontWeight: 'bold' }}>
+          MANAGEMENT
+        </div>
+
+        <ul className="nav-links">
+          <li 
+            className={`nav-item ${location.pathname.includes('company-management') ? 'active' : ''}`}
+            onClick={() => navigate('/admin/company-management')}
+          >
+            <FaBuilding className="nav-icon"/> Company List
+          </li>
+          <li 
+            className={`nav-item ${location.pathname.includes('user-management') ? 'active' : ''}`}
+            onClick={() => navigate('/admin/user-management')}
+          >
+            <FaUsers className="nav-icon"/> User Management
+          </li>
+          <li 
+            className={`nav-item ${location.pathname.includes('profile-management') ? 'active' : ''}`}
+            onClick={() => navigate('/admin/profile-management')}
+          >
+            <FaCog className="nav-icon"/> Profile Settings
           </li>
         </ul>
       </div>
@@ -52,15 +83,15 @@ const AdminLayout = () => {
       <div className="main-content">
         <div className="top-bar">
           <div className="page-title">
-             <h2>Dashboard</h2>
+             <h2>Admin Console</h2>
           </div>
 
           <div className="user-profile-section">
             <div className="user-info">
               <span className="user-name">{adminName}</span>
-              <span className="user-role">Administrator</span>
+              <span className="user-role">Super Admin</span>
             </div>
-            <FaUserCircle style={{ fontSize: '2rem', color: '#9ca3af' }} />
+            <FaUserCircle style={{ fontSize: '2.2rem', color: '#9ca3af' }} />
             <button onClick={handleLogout} className="logout-btn" title="Logout">
               <FaSignOutAlt />
             </button>
