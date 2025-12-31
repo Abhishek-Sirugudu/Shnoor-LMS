@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '../../firebase';
 import './Login.css';
+
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
@@ -17,21 +18,15 @@ const ForgotPassword = () => {
 
     try {
       await sendPasswordResetEmail(auth, email);
-      setMessage('Check your inbox for password reset instructions.');
+      setMessage('If an account exists with this email, a reset link has been sent.');
     } catch (err) {
-      console.error(err);
-      if (err.code === 'auth/user-not-found') {
-        setError("No account found with this email.");
-      } else {
-        setError("Failed to reset password. Please try again.");
-      }
+      setError("Failed to reset password. Please try again.");
     }
     setLoading(false);
   };
 
   return (
     <div className="login-container">
-      {/* Left Side: Brand Section */}
       <div className="auth-brand-section">
         <div className="brand-content">
           <h1 className="brand-logo">Security First</h1>
@@ -46,7 +41,6 @@ const ForgotPassword = () => {
         </div>
       </div>
 
-      {/* Right Side: Form Section */}
       <div className="auth-form-section">
         <div className="login-card">
           <div className="login-header">

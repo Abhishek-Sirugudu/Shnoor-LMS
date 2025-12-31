@@ -1,4 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
-  <circle cx="50" cy="50" r="50" fill="#0F172A"/>
-  <path d="M70 35C70 26.7157 63.2843 20 55 20H45C36.7157 20 30 26.7157 30 35C30 43.2843 36.7157 50 45 50H55C63.2843 50 70 56.7157 70 65C70 73.2843 63.2843 80 55 80H45C36.7157 80 30 73.2843 30 65" stroke="#38BDF8" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="100" fill="#003366"/>
+  
+  <text x="50%" y="50%" dy=".35em" 
+        fill="#ffffff" 
+        font-family="Arial, sans-serif" 
+        font-weight="bold" 
+        font-size="350" 
+        text-anchor="middle">
+    S
+  </text>
+</svg>
