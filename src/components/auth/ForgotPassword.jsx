@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { sendPasswordResetEmail } from 'firebase/auth';
-import { auth } from '../../firebase'; 
-import './Login.css'; 
+import { auth } from '../../firebase';
+import './Login.css';
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
@@ -31,47 +31,66 @@ const ForgotPassword = () => {
 
   return (
     <div className="login-container">
-      <div className="login-card">
-        <div className="login-header">
-          <h2 className="brand-title">SHNOOR LMS</h2>
-          <p className="brand-subtitle">Reset Password</p>
+      {/* Left Side: Brand Section */}
+      <div className="auth-brand-section">
+        <div className="brand-content">
+          <h1 className="brand-logo">Security First</h1>
+          <p className="brand-description">
+            We value your security. Follow the instructions to securely reset your password
+            and regain access to your Shnoor Dashboard.
+          </p>
+          <div className="brand-testimonial">
+            <span className="quote-text">"The support team helped me recover my account in minutes. Great service!"</span>
+            <span className="quote-author">- James Wilson, Administrator</span>
+          </div>
         </div>
+      </div>
 
-        {error && <div className="error-message">{error}</div>}
-        
-        {message && (
-          <div style={{
-            backgroundColor: '#dcfce7', 
-            color: '#166534', 
-            padding: '10px', 
-            borderRadius: '5px', 
-            marginBottom: '15px', 
-            textAlign: 'center',
-            border: '1px solid #bbf7d0'
-          }}>
-            {message}
-          </div>
-        )}
-
-        <form onSubmit={handleReset} className="login-form">
-          <div className="form-group">
-            <label>Email Address</label>
-            <input 
-              type="email" 
-              placeholder="Enter your registered email" 
-              value={email} 
-              onChange={(e) => setEmail(e.target.value)} 
-              required 
-            />
+      {/* Right Side: Form Section */}
+      <div className="auth-form-section">
+        <div className="login-card">
+          <div className="login-header">
+            <h2 className="brand-title">Reset Password</h2>
+            <p className="brand-subtitle">Enter your email to receive reset instructions.</p>
           </div>
 
-          <button type="submit" className="login-btn" disabled={loading}>
-            {loading ? "Sending..." : "Reset Password"}
-          </button>
-        </form>
+          {error && <div className="error-message">⚠️ {error}</div>}
 
-        <div className="login-footer">
-          <p>Remembered your password? <Link to="/" className="link">Login Here</Link></p>
+          {message && (
+            <div style={{
+              backgroundColor: '#dcfce7',
+              color: '#166534',
+              padding: '12px',
+              borderRadius: 'var(--radius-md)',
+              marginBottom: '1.5rem',
+              textAlign: 'center',
+              border: '1px solid #bbf7d0',
+              fontWeight: '500'
+            }}>
+              ✅ {message}
+            </div>
+          )}
+
+          <form onSubmit={handleReset} className="login-form">
+            <div className="form-group">
+              <label>Email Address</label>
+              <input
+                type="email"
+                placeholder="Enter your registered email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+
+            <button type="submit" className="login-btn" disabled={loading}>
+              {loading ? "Sending..." : "Reset Password"}
+            </button>
+          </form>
+
+          <div className="login-footer">
+            <p>Remembered your password? <Link to="/" className="link">Sign In</Link></p>
+          </div>
         </div>
       </div>
     </div>

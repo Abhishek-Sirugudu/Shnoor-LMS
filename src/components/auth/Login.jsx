@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'; 
-import { doc, getDoc, setDoc } from 'firebase/firestore'; 
-import { auth, googleProvider, db } from '../../firebase'; 
-import { FaEye, FaEyeSlash, FaSignInAlt, FaGoogle } from 'react-icons/fa'; 
+import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { auth, googleProvider, db } from '../../firebase';
+import { FaEye, FaEyeSlash, FaSignInAlt, FaGoogle } from 'react-icons/fa';
 import './Login.css';
 
 const Login = () => {
@@ -24,8 +24,8 @@ const Login = () => {
   }, []);
 
   const checkRoleAndRedirect = async (user) => {
-    console.log("Step 2: Checking Role in DB..."); 
-    
+    console.log("Step 2: Checking Role in DB...");
+
     try {
       const timeoutPromise = new Promise((resolve) => setTimeout(resolve, 3000, 'timeout'));
       const dbPromise = getDoc(doc(db, "users", user.uid));
@@ -39,14 +39,14 @@ const Login = () => {
         return;
       }
 
-      const userDoc = result; 
-      
+      const userDoc = result;
+
       if (userDoc.exists()) {
         const role = userDoc.data().role;
-        console.log("Role found:", role); 
+        console.log("Role found:", role);
         if (role === 'admin') navigate('/admin/dashboard');
         else if (role === 'student') navigate('/learner/dashboard');
-        else navigate('/company/overview'); 
+        else navigate('/company/overview');
       } else {
         console.log("No DB record found, using fallback.");
         if (user.email.includes('admin')) navigate('/admin/dashboard');
@@ -64,9 +64,9 @@ const Login = () => {
     setLoading(true);
 
     try {
-      console.log("Step 1: Authenticating..."); 
+      console.log("Step 1: Authenticating...");
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      
+
       if (rememberMe) localStorage.setItem('rememberedEmail', email);
       else localStorage.removeItem('rememberedEmail');
 
@@ -82,12 +82,12 @@ const Login = () => {
       setLoading(true);
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
-      
+
       await setDoc(doc(db, "users", user.uid), {
         uid: user.uid,
         email: user.email,
         fullName: user.displayName,
-        role: 'company', 
+        role: 'company',
         createdAt: new Date().toISOString()
       }, { merge: true });
 
@@ -100,57 +100,73 @@ const Login = () => {
 
   return (
     <div className="login-container">
-      <div className="login-card">
-        <div className="login-header">
-          <h2 className="brand-title">SHNOOR LMS</h2>
-          <p className="brand-subtitle">Login to Portal</p>
+      <div className="auth-brand-section">
+        <div className="brand-content">
+          <h1 className="brand-logo">SHNOOR LMS</h1>
+          <p className="brand-description">
+            Empower your institution with a world-class Learning Management System.
+            Streamline administration, enhance learning, and drive results.
+          </p>
+          <div className="brand-testimonial">
+            <span className="quote-text">"Shnoor has completely transformed how we manage our curriculum and student progress. A true game changer!"</span>
+            <span className="quote-author">- Dr. Sarah Miller, Principal</span>
+          </div>
         </div>
-        
-        {error && <div className="error-message">{error}</div>}
+      </div>
 
-        <form onSubmit={handleLogin} className="login-form">
-          <div className="form-group">
-            <label>Email Address</label>
-            <input 
-              type="email" 
-              placeholder="sample@gmail.com" 
-              value={email} 
-              onChange={(e) => setEmail(e.target.value)} 
-              required 
-            />
+      <div className="auth-form-section">
+        <div className="login-card">
+          <div className="login-header">
+            <h2 className="brand-title">Welcome Back</h2>
+            <p className="brand-subtitle">Please sign in to your dashboard.</p>
           </div>
-          
-          <div className="form-group">
-            <label>Password</label>
-            <div className="password-wrapper">
-              <input type={showPassword ? "text" : "password"} placeholder="Enter password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-              <span className="password-toggle-icon" onClick={() => setShowPassword(!showPassword)}>
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
-              </span>
+
+          {error && <div className="error-message">⚠️ {error}</div>}
+
+          <form onSubmit={handleLogin} className="login-form">
+            <div className="form-group">
+              <label>Email Address</label>
+              <input
+                type="email"
+                placeholder="you@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
             </div>
-            <div style={{textAlign: 'right', marginTop: '5px', fontSize: '0.85rem'}}>
-               <Link to="/forgot-password" className="link">Forgot Password?</Link>
+
+            <div className="form-group">
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                <label style={{ marginBottom: 0 }}>Password</label>
+                <Link to="/forgot-password" style={{ fontSize: '0.85rem', color: 'var(--color-primary)', fontWeight: 600 }}>Forgot Password?</Link>
+              </div>
+              <div className="password-wrapper">
+                <input type={showPassword ? "text" : "password"} placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                <button type="button" className="password-toggle-icon" onClick={() => setShowPassword(!showPassword)}>
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
             </div>
+
+            <div className="checkbox-group">
+              <input type="checkbox" id="rememberMe" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} />
+              <label htmlFor="rememberMe">Remember me on this device</label>
+            </div>
+
+            <button type="submit" className="login-btn" disabled={loading}>
+              {loading ? "Signing In..." : <><FaSignInAlt /> Sign In</>}
+            </button>
+
+            <div className="divider"><span>OR CONTINUE WITH</span></div>
+
+            <button type="button" className="login-btn google-btn" onClick={handleGoogleSignIn} disabled={loading}>
+              <FaGoogle style={{ color: '#EA4335' }} /> Google
+            </button>
+          </form>
+
+          <div className="login-footer">
+            <p>New to Shnoor? <Link to="/register" className="link">Create an Account</Link></p>
           </div>
-
-          <div className="checkbox-group">
-            <input type="checkbox" id="rememberMe" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} style={{width: 'auto', height: 'auto'}} />
-            <label htmlFor="rememberMe" style={{margin:0, fontWeight: 'normal'}}>Remember me</label>
-          </div>
-
-          <button type="submit" className="login-btn" disabled={loading}>
-             {loading ? "Logging in..." : <><FaSignInAlt /> Login</>}
-          </button>
-
-          <div className="divider"><span>OR</span></div>
-
-          <button type="button" className="login-btn google-btn" onClick={handleGoogleSignIn} disabled={loading}>
-             <FaGoogle style={{ color: '#EA4335', marginRight: '8px' }} /> Sign in with Google
-          </button>
-        </form>
-
-        <div className="login-footer">
-          <p>Don't have an account? <Link to="/register" className="link">Register Here</Link></p>
         </div>
       </div>
     </div>

@@ -1,8 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaPlayCircle, FaCheckCircle } from 'react-icons/fa';
 import '../Dashboard.css';
 
 const LearnerCourses = () => {
+  const navigate = useNavigate();
   const courses = [
     { id: 1, title: 'Intro to Biology', duration: 12, progress: 100 },
     { id: 2, title: 'Algebra Basics', duration: 25, progress: 70 },
@@ -15,7 +17,7 @@ const LearnerCourses = () => {
       <div className="table-header" style={{ marginBottom: '20px', borderBottom: 'none', paddingLeft: 0 }}>
         <h3>My Enrolled Courses</h3>
       </div>
-      
+
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '20px' }}>
         {courses.map(c => (
           <div key={c.id} className="stat-card" style={{ padding: '20px', borderLeft: `5px solid ${c.progress === 100 ? '#166534' : '#003366'}` }}>
@@ -23,10 +25,9 @@ const LearnerCourses = () => {
               <h4 style={{ margin: '0 0 10px 0', color: '#1f2937' }}>{c.title}</h4>
               {c.progress === 100 ? <FaCheckCircle color="#166534" /> : null}
             </div>
-            
+
             <p style={{ fontSize: '0.9rem', color: '#6b7280', margin: '0 0 15px 0' }}>{c.duration} Minutes Content</p>
 
-            {/* Progress Bar */}
             <div style={{ marginBottom: '15px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', marginBottom: '5px' }}>
                 <span>Progress</span>
@@ -37,7 +38,11 @@ const LearnerCourses = () => {
               </div>
             </div>
 
-            <button className="btn-primary" style={{ width: '100%', display: 'flex', justifyContent: 'center', gap: '8px' }}>
+            <button
+              onClick={() => navigate('/learner/video-player')}
+              className="btn-primary"
+              style={{ width: '100%', display: 'flex', justifyContent: 'center', gap: '8px' }}
+            >
               <FaPlayCircle /> {c.progress > 0 ? "Continue" : "Start Learning"}
             </button>
           </div>

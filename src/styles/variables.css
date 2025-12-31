@@ -1,0 +1,35 @@
+:root {
+  /* Brand Colors - Royal Blue/Navy Palette */
+  --color-primary: #003366;       /* Deep Royal Blue */
+  --color-primary-light: #004c99; /* Lighter Blue for hover/accent */
+  --color-primary-dark: #002244;  /* Darker Blue for active states */
+  
+  /* Neutrals */
+  --color-white: #ffffff;
+  --color-bg-white: #ffffff;
+  --color-bg-light: #f3f4f6;      /* Light Gray background */
+  --color-text-main: #111827;     /* Almost Black */
+  --color-text-secondary: #6b7280;/* Gray Text */
+  --color-border: #e5e7eb;
+  --color-danger: #ef4444;
+  
+  /* Typography */
+  --font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  
+  /* Effects */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --transition-fast: 0.2s ease;
+}
