@@ -1,7 +1,7 @@
 @import '../styles/variables.css';
 
 :root {
-  /* Dashboard specific overrides if needed */
+
   --sidebar-width: 260px;
   --header-height: 70px;
 }
@@ -13,12 +13,10 @@
   background-color: var(--color-bg-light);
 }
 
-/* ===========================
-   Sidebar
-   =========================== */
+
 .sidebar {
   width: var(--sidebar-width);
-  background-color: var(--color-primary); /* Royal Blue */
+  background-color: var(--color-primary);
   color: var(--color-white);
   display: flex;
   flex-direction: column;
@@ -82,9 +80,7 @@
   font-size: 1.1rem;
 }
 
-/* ===========================
-   Main Content
-   =========================== */
+
 .main-content {
   flex: 1;
   display: flex;
@@ -93,7 +89,7 @@
   position: relative;
 }
 
-/* Top Bar */
+
 .top-bar {
   height: var(--header-height);
   background: var(--color-white);
@@ -331,6 +327,10 @@
   font-weight: 600;
   font-size: 0.95rem;
   transition: background var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .btn-primary:hover {
@@ -346,6 +346,10 @@
   cursor: pointer;
   font-weight: 500;
   transition: background var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .btn-secondary:hover {

@@ -14,17 +14,22 @@ import AdminProfileManagement from './components/admin/AdminProfileManagement';
 
 import CompanyLayout from './components/company/CompanyLayout';
 import CompanyDashboard from './components/company/CompanyDashboard';
-import AddLearner from './components/company/AddLearner';
+import StudentManagement from './components/company/StudentManagement';
 import AddInstructor from './components/company/AddInstructor';
 import QuestionBank from './components/company/QuestionBank';
 import CourseManagement from './components/company/CourseManagement';
 import AddContent from './components/company/AddContent';
 import DeleteContent from './components/company/DeleteContent';
 import TestSeries from './components/company/TestSeries';
+import CompanySettings from './components/company/CompanySettings';
 
 import LearnerLayout from './components/learner/LearnerLayout';
 import LearnerDashboard from './components/learner/LearnerDashboard';
 import LearnerCourses from './components/learner/LearnerCourses';
+import ExploreCourses from './components/learner/ExploreCourses';
+import LearnerAssignments from './components/learner/LearnerAssignments';
+import LearnerAchievements from './components/learner/LearnerAchievements';
+import CourseDetail from './components/learner/CourseDetail';
 import LearnerPoints from './components/learner/LearnerPoints';
 import VideoPlayer from './components/learner/VideoPlayer';
 
@@ -47,19 +52,25 @@ function App() {
 
         <Route path="/company" element={<CompanyLayout />}>
           <Route path="overview" element={<CompanyDashboard />} />
-          <Route path="add-learner" element={<AddLearner />} />
+          <Route path="students" element={<StudentManagement />} />
+          <Route path="add-learner" element={<StudentManagement />} />
           <Route path="add-instructor" element={<AddInstructor />} />
           <Route path="question-bank" element={<QuestionBank />} />
           <Route path="course-management" element={<CourseManagement />} />
           <Route path="add-content" element={<AddContent />} />
           <Route path="delete-content" element={<DeleteContent />} />
           <Route path="test-series" element={<TestSeries />} />
+          <Route path="settings" element={<CompanySettings />} />
           <Route index element={<Navigate to="overview" />} />
         </Route>
 
         <Route path="/learner" element={<LearnerLayout />}>
           <Route path="dashboard" element={<LearnerDashboard />} />
           <Route path="courses" element={<LearnerCourses />} />
+          <Route path="explore" element={<ExploreCourses />} />
+          <Route path="assignments" element={<LearnerAssignments />} />
+          <Route path="achievements" element={<LearnerAchievements />} />
+          <Route path="course/:id" element={<CourseDetail />} />
           <Route path="points" element={<LearnerPoints />} />
           <Route path="video-player" element={<VideoPlayer />} />
           <Route index element={<Navigate to="dashboard" />} />

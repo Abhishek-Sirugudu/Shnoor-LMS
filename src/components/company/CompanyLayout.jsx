@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { auth } from '../../firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { FaUserCircle, FaChalkboardTeacher, FaUserGraduate, FaBook, FaSignOutAlt, FaThLarge, FaPlus, FaTrash, FaList } from 'react-icons/fa';
+import { FaUserCircle, FaChalkboardTeacher, FaUserGraduate, FaBook, FaSignOutAlt, FaThLarge, FaPlus, FaTrash, FaList, FaCog } from 'react-icons/fa';
 import '../Dashboard.css';
 
 const CompanyLayout = () => {
@@ -41,11 +41,11 @@ const CompanyLayout = () => {
           <li className={`nav-item ${location.pathname.includes('overview') ? 'active' : ''}`} onClick={() => navigate('/company/overview')}>
             <FaThLarge className="nav-icon" /> Overview
           </li>
-          <li className={`nav-item ${location.pathname.includes('add-instructor') ? 'active' : ''}`} onClick={() => navigate('/company/add-instructor')}>
-            <FaChalkboardTeacher className="nav-icon" /> Add Instructor
+          <li className={`nav-item ${location.pathname.includes('students') ? 'active' : ''}`} onClick={() => navigate('/company/students')}>
+            <FaUserGraduate className="nav-icon" /> Student Management
           </li>
-          <li className={`nav-item ${location.pathname.includes('add-learner') ? 'active' : ''}`} onClick={() => navigate('/company/add-learner')}>
-            <FaUserGraduate className="nav-icon" /> Add Learner
+          <li className={`nav-item ${location.pathname.includes('add-instructor') ? 'active' : ''}`} onClick={() => navigate('/company/add-instructor')}>
+            <FaChalkboardTeacher className="nav-icon" /> Instructors
           </li>
         </ul>
 
@@ -54,20 +54,21 @@ const CompanyLayout = () => {
         </div>
 
         <ul className="nav-links">
-          <li className={`nav-item ${location.pathname.includes('question-bank') ? 'active' : ''}`} onClick={() => navigate('/company/question-bank')}>
-            <FaBook className="nav-icon" /> Question Bank
-          </li>
           <li className={`nav-item ${location.pathname.includes('course-management') ? 'active' : ''}`} onClick={() => navigate('/company/course-management')}>
             <FaList className="nav-icon" /> Course Management
           </li>
-          <li className={`nav-item ${location.pathname.includes('add-content') ? 'active' : ''}`} onClick={() => navigate('/company/add-content')}>
-            <FaPlus className="nav-icon" /> Add Content
+          <li className={`nav-item ${location.pathname.includes('question-bank') ? 'active' : ''}`} onClick={() => navigate('/company/question-bank')}>
+            <FaBook className="nav-icon" /> Assessment Center
           </li>
-          <li className={`nav-item ${location.pathname.includes('delete-content') ? 'active' : ''}`} onClick={() => navigate('/company/delete-content')}>
-            <FaTrash className="nav-icon" /> Delete Content
-          </li>
-          <li className={`nav-item ${location.pathname.includes('test-series') ? 'active' : ''}`} onClick={() => navigate('/company/test-series')}>
-            <FaList className="nav-icon" /> Test Series
+        </ul>
+
+        <div className="sidebar-section-header">
+          ADMIN
+        </div>
+
+        <ul className="nav-links">
+          <li className={`nav-item ${location.pathname.includes('settings') ? 'active' : ''}`} onClick={() => navigate('/company/settings')}>
+            <FaCog className="nav-icon" /> Settings & Billing
           </li>
         </ul>
       </div>

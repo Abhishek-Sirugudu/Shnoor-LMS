@@ -3,7 +3,7 @@ import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { auth, db } from '../../firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
-import { FaList, FaTrophy, FaUserCircle, FaSignOutAlt, FaStar, FaChartLine } from 'react-icons/fa';
+import { FaList, FaTrophy, FaUserCircle, FaSignOutAlt, FaStar, FaChartLine, FaCompass, FaClipboardList } from 'react-icons/fa';
 import '../Dashboard.css';
 
 const LearnerLayout = () => {
@@ -20,7 +20,7 @@ const LearnerLayout = () => {
         if (userDoc.exists()) {
           const data = userDoc.data();
           setStudentName(data.fullName || user.displayName || "Learner");
-          setXp(data.xp || 137); // Default to 137 (from teammate's mock data)
+          setXp(data.xp || 137);
         }
       }
     });
@@ -51,14 +51,28 @@ const LearnerLayout = () => {
             className={`nav-item ${location.pathname.includes('courses') ? 'active' : ''}`}
             onClick={() => navigate('/learner/courses')}
           >
-            <FaList className="nav-icon" /> My Courses
+            <FaList className="nav-icon" /> My Learning
           </li>
 
           <li
-            className={`nav-item ${location.pathname.includes('points') ? 'active' : ''}`}
-            onClick={() => navigate('/learner/points')}
+            className={`nav-item ${location.pathname.includes('explore') ? 'active' : ''}`}
+            onClick={() => navigate('/learner/explore')}
           >
-            <FaTrophy className="nav-icon" /> Points / Ranking
+            <FaCompass className="nav-icon" /> Explore Courses
+          </li>
+
+          <li
+            className={`nav-item ${location.pathname.includes('assignments') ? 'active' : ''}`}
+            onClick={() => navigate('/learner/assignments')}
+          >
+            <FaClipboardList className="nav-icon" /> Assignments
+          </li>
+
+          <li
+            className={`nav-item ${location.pathname.includes('achievements') ? 'active' : ''}`}
+            onClick={() => navigate('/learner/achievements')}
+          >
+            <FaTrophy className="nav-icon" /> Achievements
           </li>
         </ul>
       </div>
@@ -90,7 +104,7 @@ const LearnerLayout = () => {
         </div>
 
         <div className="content-area">
-          <Outlet />
+          <Outlet context={{ studentName, xp, setXp }} />
         </div>
       </div>
     </div>

@@ -47,7 +47,7 @@ const QuestionBank = () => {
   return (
     <div className="split-layout">
 
-      {/* LEFT COLUMN: BUILDER FORM */}
+
       <div className="form-box">
         <h3 className="form-header">Question Builder</h3>
         <form onSubmit={addQuestion}>
@@ -94,7 +94,7 @@ const QuestionBank = () => {
 
           <div className="form-actions">
             <button type="submit" className="btn-primary" style={{ width: '100%' }}>
-              <FaPlus style={{ marginRight: '8px' }} /> Add to Test
+              <FaPlus /> Add to Test
             </button>
           </div>
         </form>

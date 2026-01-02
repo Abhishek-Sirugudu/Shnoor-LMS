@@ -1,20 +1,21 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaPlayCircle, FaCheckCircle } from 'react-icons/fa';
+import { FaPlayCircle, FaCheckCircle, FaCertificate } from 'react-icons/fa';
 import '../Dashboard.css';
+import './Learner.css';
 
 const LearnerCourses = () => {
   const navigate = useNavigate();
   const courses = [
-    { id: 1, title: 'Intro to Biology', duration: 12, progress: 100 },
-    { id: 2, title: 'Algebra Basics', duration: 25, progress: 70 },
-    { id: 3, title: 'World History', duration: 40, progress: 40 },
-    { id: 4, title: 'Physics I', duration: 55, progress: 0 },
+    { id: 1, title: 'Intro to Biology', duration: 12, progress: 100, hasCertificate: true },
+    { id: 2, title: 'Algebra Basics', duration: 25, progress: 70, hasCertificate: false },
+    { id: 3, title: 'World History', duration: 40, progress: 40, hasCertificate: true },
+    { id: 4, title: 'Physics I', duration: 55, progress: 0, hasCertificate: false },
   ];
 
   return (
     <div>
-      <div className="table-header" style={{ marginBottom: '20px', borderBottom: 'none', paddingLeft: 0 }}>
+      <div className="learner-page-header">
         <h3>My Enrolled Courses</h3>
       </div>
 
@@ -26,7 +27,13 @@ const LearnerCourses = () => {
               {c.progress === 100 ? <FaCheckCircle color="#166534" /> : null}
             </div>
 
-            <p style={{ fontSize: '0.9rem', color: '#6b7280', margin: '0 0 15px 0' }}>{c.duration} Minutes Content</p>
+            <p style={{ fontSize: '0.9rem', color: '#6b7280', margin: '0 0 10px 0' }}>{c.duration} Minutes Content</p>
+
+            {c.hasCertificate && (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.8rem', color: '#d97706', marginBottom: '15px', fontWeight: 'bold' }}>
+                <FaCertificate /> Certificate Available
+              </div>
+            )}
 
             <div style={{ marginBottom: '15px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', marginBottom: '5px' }}>

@@ -3,13 +3,13 @@ import { FaFolder, FaPlus, FaArrowLeft, FaFileVideo, FaYoutube, FaGoogleDrive, F
 import '../Dashboard.css';
 
 const CourseManagement = () => {
-  const [view, setView] = useState('folders'); // 'folders' or 'lessons'
+  const [view, setView] = useState('folders');
   const [currentFolder, setCurrentFolder] = useState(null);
   const [showLinkModal, setShowLinkModal] = useState(false);
   const [showFolderModal, setShowFolderModal] = useState(false);
   const [newFolderName, setNewFolderName] = useState('');
 
-  // Mock Data
+
   const [folders, setFolders] = useState([
     { id: 1, name: 'Intro to Python', count: 12 },
     { id: 2, name: 'React Fundamentals', count: 8 },
@@ -36,7 +36,7 @@ const CourseManagement = () => {
 
   return (
     <div>
-      {/* HEADER */}
+
       <div className="table-header">
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           {view === 'lessons' && (
@@ -49,16 +49,16 @@ const CourseManagement = () => {
 
         {view === 'folders' ? (
           <button className="btn-primary" onClick={() => setShowFolderModal(true)}>
-            <FaPlus style={{ marginRight: '5px' }} /> New Course
+            <FaPlus /> New Course
           </button>
         ) : (
           <button className="btn-primary" onClick={() => setShowLinkModal(true)}>
-            <FaLink style={{ marginRight: '5px' }} /> Add Link
+            <FaLink /> Add Link
           </button>
         )}
       </div>
 
-      {/* FOLDER VIEW */}
+
       {view === 'folders' && (
         <div className="folder-grid">
           {folders.map(folder => (
@@ -73,7 +73,7 @@ const CourseManagement = () => {
             </div>
           ))}
 
-          {/* Create New Trigger Card */}
+
           <div
             onClick={() => setShowFolderModal(true)}
             className="create-trigger-card"
@@ -84,17 +84,17 @@ const CourseManagement = () => {
         </div>
       )}
 
-      {/* LESSON VIEW */}
+
       {view === 'lessons' && (
         <div>
-          {/* Drag & Drop Area */}
+
           <div className="drag-drop-area" style={{ marginBottom: '30px' }}>
             <FaCloudUploadAlt style={{ fontSize: '3rem', color: '#9ca3af', marginBottom: '10px' }} />
             <h4 style={{ margin: '0 0 5px 0', color: '#374151' }}>Drag & Drop Video Files Here</h4>
             <p style={{ margin: 0, fontSize: '0.85rem', color: '#6b7280' }}>or click to browse from your computer</p>
           </div>
 
-          {/* Content List */}
+
           <div className="table-container">
             <table>
               <thead>

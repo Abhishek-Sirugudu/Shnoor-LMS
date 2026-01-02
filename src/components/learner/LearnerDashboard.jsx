@@ -1,95 +1,119 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { FaClock, FaBookReader, FaStar, FaPlay, FaTrophy } from 'react-icons/fa';
+import { useNavigate, useOutletContext } from 'react-router-dom';
+import { FaClock, FaBookReader, FaStar, FaPlay, FaFire, FaMedal } from 'react-icons/fa';
 import '../Dashboard.css';
+import './Learner.css';
 
 const LearnerDashboard = () => {
   const navigate = useNavigate();
+  const { studentName, xp } = useOutletContext();
+
+
   const [courses] = useState([
-    { id: 1, title: 'Intro to Python', progress: 75, totalLessons: 12, completedLessons: 9 },
-    { id: 2, title: 'React Fundamentals', progress: 30, totalLessons: 20, completedLessons: 6 },
-    { id: 3, title: 'Advanced CSS', progress: 0, totalLessons: 15, completedLessons: 0 },
-    { id: 4, title: 'Data Structures', progress: 10, totalLessons: 25, completedLessons: 2 },
+    { id: 1, title: 'Intro to Python', progress: 75, totalLessons: 12, completedLessons: 9, lastWatched: true, thumbnailColor: '#3b82f6' },
+    { id: 2, title: 'React Fundamentals', progress: 30, totalLessons: 20, completedLessons: 6, lastWatched: false, thumbnailColor: '#10b981' },
+    { id: 3, title: 'Advanced CSS', progress: 0, totalLessons: 15, completedLessons: 0, lastWatched: false, thumbnailColor: '#f59e0b' },
+    { id: 4, title: 'Data Structures', progress: 10, totalLessons: 25, completedLessons: 2, lastWatched: false, thumbnailColor: '#8b5cf6' },
   ]);
 
   const stats = {
-    xp: 2450,
-    testsTaken: 8,
-    hoursWatched: 14.5
+    xp: xp,
+    rank: 12,
+    streak: 5
   };
+
+  const resumeCourse = courses.find(c => c.lastWatched) || courses[0];
 
   return (
     <div>
-      <div className="stats-grid">
-        <div className="stat-card" style={{ borderLeftColor: '#ca8a04' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div>
-              <span className="stat-label">XP Earned</span>
-              <div className="stat-number">{stats.xp}</div>
-            </div>
-            <div style={{ background: '#fef9c3', padding: '10px', borderRadius: '50%', color: '#ca8a04' }}>
-              <FaStar size={20} />
-            </div>
-          </div>
-        </div>
 
-        <div className="stat-card" style={{ borderLeftColor: '#003366' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div>
-              <span className="stat-label">Tests Taken</span>
-              <div className="stat-number">{stats.testsTaken}</div>
-            </div>
-            <div style={{ background: '#e0f2fe', padding: '10px', borderRadius: '50%', color: '#003366' }}>
-              <FaBookReader size={20} />
-            </div>
-          </div>
-        </div>
+      <div className="learner-welcome">
+        <h2>Welcome back, {studentName}! 👋</h2>
+        <p>Ready to send it? Let's continue where you left off.</p>
+      </div>
 
-        <div className="stat-card" style={{ borderLeftColor: '#166534' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div>
-              <span className="stat-label">Hours Watched</span>
-              <div className="stat-number">{stats.hoursWatched}</div>
-            </div>
-            <div style={{ background: '#dcfce7', padding: '10px', borderRadius: '50%', color: '#166534' }}>
-              <FaClock size={20} />
-            </div>
-          </div>
+
+      <div className="resume-card">
+        <div className="resume-content">
+          <span className="resume-label">Resume Learning</span>
+          <h3 className="resume-title">{resumeCourse.title}</h3>
+          <p className="resume-info">
+            <FaClock style={{ marginRight: '6px' }} />
+            Lesson {resumeCourse.completedLessons + 1}: Variables & Data Types
+          </p>
+          <button
+            onClick={() => navigate('/learner/video-player')}
+            className="resume-btn"
+          >
+            <FaPlay /> Continue Watching
+          </button>
+        </div>
+        <div className="resume-icon-bg">
+          <FaPlay />
         </div>
       </div>
 
-      <h3 style={{ margin: '30px 0 20px 0', color: '#1f2937' }}>My Courses</h3>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px' }}>
+
+      <div className="stats-grid">
+        <div className="stat-card" style={{ borderLeftColor: '#f59e0b' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <span className="stat-label">Total XP</span>
+              <div className="stat-number">{stats.xp}</div>
+            </div>
+            <div style={{ background: '#fef3c7', padding: '12px', borderRadius: '50%', color: '#d97706' }}>
+              <FaStar size={24} />
+            </div>
+          </div>
+          <div style={{ fontSize: '0.85rem', color: '#92400e', marginTop: '5px' }}>Top 5% of learners</div>
+        </div>
+
+        <div className="stat-card" style={{ borderLeftColor: '#8b5cf6' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <span className="stat-label">Current Rank</span>
+              <div className="stat-number">#{stats.rank}</div>
+            </div>
+            <div style={{ background: '#ede9fe', padding: '12px', borderRadius: '50%', color: '#7c3aed' }}>
+              <FaMedal size={24} />
+            </div>
+          </div>
+          <div style={{ fontSize: '0.85rem', color: '#5b21b6', marginTop: '5px' }}> in your batch</div>
+        </div>
+
+        <div className="stat-card" style={{ borderLeftColor: '#ef4444' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <span className="stat-label">Daily Streak</span>
+              <div className="stat-number">{stats.streak} Days</div>
+            </div>
+            <div style={{ background: '#fee2e2', padding: '12px', borderRadius: '50%', color: '#dc2626' }}>
+              <FaFire size={24} />
+            </div>
+          </div>
+          <div style={{ fontSize: '0.85rem', color: '#991b1b', marginTop: '5px' }}>Keep it up! 🔥</div>
+        </div>
+      </div>
+
+      <h3 className="section-title">My Courses</h3>
+      <div className="course-grid">
         {courses.map(course => (
-          <div key={course.id} style={{
-            background: '#fff', borderRadius: '8px', border: '1px solid #e5e7eb', overflow: 'hidden',
-            display: 'flex', flexDirection: 'column'
-          }}>
-            <div style={{ height: '140px', background: 'linear-gradient(135deg, #003366 0%, #3b82f6 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <FaBookReader style={{ fontSize: '3rem', color: 'rgba(255,255,255,0.2)' }} />
+          <div key={course.id} className="course-card" onClick={() => navigate('/learner/video-player')}>
+            <div className="course-thumbnail" style={{ background: course.thumbnailColor }}>
+              <FaBookReader style={{ fontSize: '3.5rem', color: 'rgba(255,255,255,0.3)' }} />
             </div>
 
-            <div style={{ padding: '20px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-              <h4 style={{ margin: '0 0 10px 0', fontSize: '1.1rem', color: '#1f2937' }}>{course.title}</h4>
+            <div className="course-details">
+              <h4 className="course-title">{course.title}</h4>
 
-              <div style={{ marginBottom: '15px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', marginBottom: '5px', color: '#6b7280' }}>
-                  <span>{course.progress}% Complete</span>
-                  <span>{course.completedLessons}/{course.totalLessons} Lessons</span>
+              <div style={{ marginBottom: 'auto' }}>
+                <div className="course-meta">
+                  <span>{course.progress}%</span>
+                  <span>{course.completedLessons}/{course.totalLessons}</span>
                 </div>
-                <div style={{ width: '100%', height: '8px', background: '#e5e7eb', borderRadius: '4px', overflow: 'hidden' }}>
-                  <div style={{ width: `${course.progress}%`, height: '100%', background: '#166534', transition: 'width 0.5s ease' }}></div>
+                <div className="progress-bar-container">
+                  <div className="progress-bar" style={{ width: `${course.progress}%`, background: course.thumbnailColor }}></div>
                 </div>
-              </div>
-
-              <div style={{ marginTop: 'auto' }}>
-                <button
-                  onClick={() => navigate('/learner/video-player')}
-                  className="btn-primary"
-                  style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px' }}
-                >
-                  <FaPlay size={12} /> {course.progress > 0 ? 'Resume Course' : 'Start Learning'}
-                </button>
               </div>
             </div>
           </div>
