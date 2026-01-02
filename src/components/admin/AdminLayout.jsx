@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { auth } from '../../firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { FaUserCircle, FaBuilding, FaThLarge, FaSignOutAlt, FaUsers, FaCog, FaPlusCircle } from 'react-icons/fa';
+import { FaUserCircle, FaBuilding, FaThLarge, FaSignOutAlt, FaCog, FaPlusCircle } from 'react-icons/fa';
 import '../Dashboard.css';
 
 const AdminLayout = () => {
@@ -63,12 +63,7 @@ const AdminLayout = () => {
           >
             <FaBuilding className="nav-icon" /> Company List
           </li>
-          <li
-            className={`nav-item ${location.pathname.includes('user-management') ? 'active' : ''}`}
-            onClick={() => navigate('/admin/user-management')}
-          >
-            <FaUsers className="nav-icon" /> User Management
-          </li>
+
           <li
             className={`nav-item ${location.pathname.includes('profile-management') ? 'active' : ''}`}
             onClick={() => navigate('/admin/profile-management')}

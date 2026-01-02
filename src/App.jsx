@@ -9,7 +9,7 @@ import AdminLayout from './components/admin/AdminLayout';
 import AdminDashboard from './components/admin/AdminDashboard';
 import AddCompany from './components/admin/AddCompany';
 import AdminCompanyManagement from './components/admin/AdminCompanyManagement';
-import AdminUserManagement from './components/admin/AdminUserManagement';
+
 import AdminProfileManagement from './components/admin/AdminProfileManagement';
 
 import CompanyLayout from './components/company/CompanyLayout';
@@ -40,7 +40,7 @@ function App() {
           <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="add-company" element={<AddCompany />} />
           <Route path="company-management" element={<AdminCompanyManagement />} />
-          <Route path="user-management" element={<AdminUserManagement />} />
+
           <Route path="profile-management" element={<AdminProfileManagement />} />
           <Route index element={<Navigate to="dashboard" />} />
         </Route>
